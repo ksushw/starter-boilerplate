@@ -159,15 +159,15 @@ const dashBoardNavTree = [
 
 const settingsNavTree = [
   {
-    key: "home",
-    path: `${APP_PREFIX_PATH}/home`,
+    key: "system",
+    path: `${APP_PREFIX_PATH}/system`,
     title: "Системные",
     icon: DashboardOutlined,
     breadcrumb: true,
     submenu: [
       {
         key: "settings",
-        path: `${APP_PREFIX_PATH}/settings`,
+        path: `${APP_PREFIX_PATH}/system/settings`,
         title: "Настройки",
         icon: SettingOutlined,
         breadcrumb: true,
@@ -175,7 +175,7 @@ const settingsNavTree = [
       },
       {
         key: "mobule",
-        path: `${APP_PREFIX_PATH}/mobule`,
+        path: `${APP_PREFIX_PATH}/system/mobule`,
         title: "Мобильное приложение",
         icon: MobileOutlined,
         breadcrumb: true,
@@ -183,7 +183,7 @@ const settingsNavTree = [
       },
       {
         key: "logs",
-        path: `${APP_PREFIX_PATH}/logs`,
+        path: `${APP_PREFIX_PATH}/system/logs`,
         title: "Логи",
         icon: FileTextOutlined,
         breadcrumb: true,
