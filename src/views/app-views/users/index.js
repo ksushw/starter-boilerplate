@@ -10,6 +10,10 @@ const Pages = ({ match }) => (
         path={`${match.url}/list`}
         component={lazy(() => import(`./user-list/index`))}
       />
+      <Route
+        path={`${match.url}/:selectedUser`}
+        component={lazy(() => import(`./profile`))}
+      />
     </Switch>
   </Suspense>
 );

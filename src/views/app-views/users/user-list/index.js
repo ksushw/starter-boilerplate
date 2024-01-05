@@ -2,26 +2,22 @@ import React, { Component } from "react";
 import { Card, Table, Tag, Tooltip, message, Button } from "antd";
 import { EyeOutlined, DeleteOutlined } from "@ant-design/icons";
 import moment from "moment";
-import UserView from "./UserView";
 import AvatarStatus from "components/shared-components/AvatarStatus";
 import reqwest from "reqwest";
+import { Link } from "react-router-dom";
 
 const fakeDataUrl = "https://jsonplaceholder.typicode.com/users";
 
 export class UserList extends Component {
   state = {
     users: [],
-    loading: false,
+    loading: true,
     userProfileVisible: false,
     selectedUser: null,
   };
 
   componentDidMount() {
-    this.setState({
-      loading: true,
-    });
     this.fetchData((res) => {
-      console.log(res);
       this.setState({
         users: res,
         loading: false,
@@ -58,23 +54,8 @@ export class UserList extends Component {
     message.success({ content: `Deleted user ${userId}`, duration: 2 });
   };
 
-  showUserProfile = (userInfo) => {
-    this.setState({
-      userProfileVisible: true,
-      selectedUser: userInfo,
-    });
-  };
-
-  closeUserProfile = () => {
-    this.setState({
-      userProfileVisible: false,
-      selectedUser: null,
-    });
-  };
-
   render() {
-    const { users, userProfileVisible, selectedUser } = this.state;
-
+    const { users, loading } = this.state;
     const tableColumns = [
       {
         title: "User",
@@ -138,17 +119,16 @@ export class UserList extends Component {
         dataIndex: "actions",
         render: (_, elm) => (
           <div className="text-right">
-            <Tooltip title="View">
-              <Button
-                type="primary"
-                className="mr-2"
-                icon={<EyeOutlined />}
-                onClick={() => {
-                  this.showUserProfile(elm);
-                }}
-                size="small"
-              />
-            </Tooltip>
+            <Link to={`${elm.id}`}>
+              <Tooltip title="View">
+                <Button
+                  type="primary"
+                  className="mr-2"
+                  icon={<EyeOutlined />}
+                  size="small"
+                />
+              </Tooltip>
+            </Link>
             <Tooltip title="Delete">
               <Button
                 danger
@@ -166,14 +146,9 @@ export class UserList extends Component {
 
     return (
       <Card bodyStyle={{ padding: "0px" }}>
-        <Table columns={tableColumns} dataSource={users} rowKey="id" />
-        <UserView
-          data={selectedUser}
-          visible={userProfileVisible}
-          close={() => {
-            this.closeUserProfile();
-          }}
-        />
+        {!loading && (
+          <Table columns={tableColumns} dataSource={users} rowKey="id" />
+        )}
       </Card>
     );
   }
